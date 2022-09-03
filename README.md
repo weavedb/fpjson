@@ -194,12 +194,6 @@ FPJSON is used to define access control rules and cron jobs in [WeaveDB](https:/
 
 FPJSON is also to be used for natural language generation algorithms, which will lead to the next-gen AI paradigm to revolutionize the human languages.
 
-## POLP (Proof Of Learning Protocol)
-
-POLP is planned to be launched soon. Anyone who completes the exam with 100% score can mint an SBT/NFT to proove the success, and we will form a closed community with hyper productive engineers and the like-minded where you will have an access with the NFT.
-
-The interactive tutorials and the exam are MVPs of such a future-proof learning system.
-
 ## Tutorials
 
 Learning functional programming is pretty challenging. So we created interactive tutorials and an exam to make sure you can familiarize yourself with all the core functions with ease!
@@ -207,3 +201,5 @@ Learning functional programming is pretty challenging. So we created interactive
 Going through the tutorials will install a new framework in your brain and make you a better programmer in general even if you never need FPJSON.
 
 It's not so much about languages, but about how your brain agnostically operates on data structures.
+
+- [fpjson.asteroid.ac](https://fpjson.asteroid.ac)
