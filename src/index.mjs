@@ -8,6 +8,8 @@ const types = {
   Boolean,
 }
 
+const isFunction = f => typeof f === "function"
+
 const fn = (r, d = {}) => {
   if (R.isNil(r)) return r
 
@@ -31,7 +33,7 @@ const fn = (r, d = {}) => {
   })
 
   let ret = null
-  if (R.is(Function, r[0])) {
+  if (isFunction(r[0])) {
     const args = R.tail(r)
     ret = r[0](...args)
   } else if (R.is(Array)(r) && r.length === 1 && r[0] === "__") {
@@ -42,7 +44,7 @@ const fn = (r, d = {}) => {
     ret = new RegExp(...R.tail(r))
   } else if (
     R.is(Array)(r) &&
-    (R.includes(r[0])(["let", "var", "$"]) || R.is(Function)(R[r[0]]))
+    (R.includes(r[0])(["let", "var", "$"]) || isFunction(R[r[0]]))
   ) {
     ret = R.compose(
       R.ifElse(
@@ -74,7 +76,7 @@ const fn = (r, d = {}) => {
   if (R.is(Array)(ret) && R.is(String)(ret[0]) && ret[0] === "[]") {
     _ret = R.tail(ret)
   } else {
-    _ret = R.is(Function)(ret[0]) ? fn(ret, d) : ret
+    _ret = isFunction(ret[0]) ? fn(ret, d) : ret
   }
 
   return _ret
