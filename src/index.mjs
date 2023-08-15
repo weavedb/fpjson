@@ -76,7 +76,7 @@ const fn = (r, d = {}) => {
   if (R.is(Array)(ret) && R.is(String)(ret[0]) && ret[0] === "[]") {
     _ret = R.tail(ret)
   } else {
-    _ret = isFunction(ret[0]) ? fn(ret, d) : ret
+    _ret = isFunction(ret?.[0]) ? fn(ret, d) : ret
   }
 
   return _ret
