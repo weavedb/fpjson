@@ -14,8 +14,24 @@ const fn = (r, d = {}) => {
   if (R.isNil(r)) return r
 
   const _$ = R.curry(path => {
-    if (/^\$/.test(path)) path = _var(R.tail(path), true)
-    return R.path(path.split("."))(d)
+    if (R.is(Array, path)) {
+      let arr = []
+      for (const v of path) arr.push(_$(v))
+      return arr
+    } else if (R.is(Object, path)) {
+      let obj = {}
+      for (const k in path) obj[k] = _$(path[k])
+      return obj
+    } else if (R.is(String, path)) {
+      if (path[0] === "%") {
+        return R.tail(path)
+      } else {
+        if (/^\$/.test(path)) path = _var(R.tail(path), true)
+        return R.path(path.split("."))(d)
+      }
+    } else {
+      return path
+    }
   })
 
   const _var = R.curry((path, ignore) => _$(path))

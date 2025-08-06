@@ -42,5 +42,8 @@ describe("FPJSON", function () {
     expect(fpjson(["var", "$ln", true], store)).to.eql(1)
     expect(fpjson(["$", "$ln"], store)).to.eql(1)
     expect(store).to.eql({ n: 1, o: { n: 1 }, ln: "n" })
+    expect(
+      fpjson(["$", ["n", "n", { a: "n", b: "$ln", c: "%n" }]], store),
+    ).to.eql([1, 1, { a: 1, b: 1, c: "n" }])
   })
 })

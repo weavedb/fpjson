@@ -2,7 +2,7 @@
 
 # FPJSON
 
-[FPJSON](https://fpjson.asteroid.ac) is a programming language agnostic JSON-based functional programming language.
+[FPJSON](https://fpjson.weavedb.dev) is a programming language agnostic JSON-based functional programming language.
 
 - The whole code is just a JSON array
 - Functional Programming
@@ -121,6 +121,16 @@ To create a `RegExp`.
 ["test", ["reg", "a", "i"], "ABC"] // test(new RegExp("a", "i"), "ABC")
 ```
 
+#### "$"
+
+You can pass a store object as the second argument to `fpjson`.
+
+To access previously defined variables, use `"$"`.
+
+```javascript
+fpjson(["add", ["$", "num1"], 1], { "num": 1 }) // 2
+```
+
 #### "let"
 
 Pure functional programming without any side-effects is easy to get extremely complex and entangled even for simple logics.
@@ -129,28 +139,6 @@ Pure functional programming without any side-effects is easy to get extremely co
 
 ```javascript
 ["let", "num1", 1] // let var1 = 1
-```
-
-#### "$"
-
-To access previously defined variables, use `"$"`.
-
-```javascript
-["add", ["var", "num1"], 1] // add(num1, 1)
-```
-
-In practice, you need to use `"let"` and `"$"` in the same array.
-
-```javascript
-[["pipe", ["add", 1], ["let", "num1"], ["$", "num1"]], 1]) // = 2
-```
-
-Or you can pass a store object as the second argument to `fpjson`.
-
-```javascript
-let vars = {}
-fpjson(["let", "num1", 1], vars) // vars = { "num1" : 1 }
-fpjson(["add", ["$", "num1"], 1], vars) // 2
 ```
 
 #### "var"
@@ -166,6 +154,19 @@ let vars = {}
 fpjson(["let", "num1", 1], vars) // vars = { "num1" : 1 }
 fpjson(["add", ["var", "num1", true], 1], vars) // 2
 ```
+
+`var` is especially convenient in a composition to switch the tracked value..
+
+```javascript
+fpjson([[
+  "pipe",
+  ["add", 1], // add 1 to 1
+  ["let", "num1"], // store 2 to num1
+  ["var", "num2"] // switch the ctx to num2, var("num2", 2), but 2 ignored
+], 1]),{ num2: 4 }) // => 4 is the final result
+```
+
+This pipeline add `1` to the initial value `1`, store it to `num1`, then switch the context to `num2`.
 
 #### Dynamic Variables
 
@@ -190,7 +191,7 @@ fpjson(["var", "o.num", true ], vars) // 1
 
 ## Who is Using FPJSON?
 
-FPJSON is used to define access control rules and cron jobs in [WeaveDB](https://weavedb.asteroid.ac/) - Arweave-based decentralized NoSQL Database. FPJSON allows super rich and complex programming logics to be stored as JSON data on smart contracts, which opens up a whole new pradigm to dapp development.
+FPJSON is used to define access control rules and cron jobs in [WeaveDB](https://weavedb.weavedb.dev/) - Arweave-based decentralized NoSQL Database. FPJSON allows super rich and complex programming logics to be stored as JSON data on smart contracts, which opens up a whole new pradigm to dapp development.
 
 FPJSON is also to be used for natural language generation algorithms, which will lead to the next-gen AI paradigm to revolutionize the human languages.
 
@@ -202,4 +203,4 @@ Going through the tutorials will install a new framework in your brain and make 
 
 It's not so much about languages, but about how your brain agnostically operates on data structures.
 
-- [fpjson.asteroid.ac](https://fpjson.asteroid.ac)
+- [fpjson.weavedb.dev](https://fpjson.weavedb.dev)
