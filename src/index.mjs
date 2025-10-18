@@ -1,4 +1,5 @@
-import * as R from "ramda"
+import * as R0 from "ramda"
+const { until, unfold, ...R } = R0
 
 const types = {
   Object,
@@ -69,15 +70,15 @@ const fn = (r, d = {}) => {
           r[0] === "$"
             ? _$
             : r[0] === "var"
-            ? _var
-            : r[0] === "let"
-            ? _let
-            : R[r[0]]
+              ? _var
+              : r[0] === "let"
+                ? _let
+                : R[r[0]],
         ),
-        R.always(R[r[0]])
+        R.always(R[r[0]]),
       ),
       R.map(v => fn(v, d)),
-      R.tail
+      R.tail,
     )(r)
     ret = typeof ret === "undefined" ? [] : ret
   } else if (R.is(Object)(r) && R.is(String)(r.var)) {
